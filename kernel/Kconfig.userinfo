@@ -1,0 +1,7 @@
+config USERINFO
+	tristate
+        bool "Returns user info (number of processes, file descriptors and pending signals"
+        default y
+        help
+            Returns user info
+

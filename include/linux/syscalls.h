@@ -889,6 +889,6 @@ asmlinkage long sys_membarrier(int cmd, int flags);
 
 asmlinkage long sys_mlock2(unsigned long start, size_t len, int flags);
 
-asmlinkage long sys_userinfo(int uid, int *procs, int *sigs, int *fds);
+asmlinkage long sys_userinfo(int uid, int *procs,  int *sigs, int *fds);
 
 #endif

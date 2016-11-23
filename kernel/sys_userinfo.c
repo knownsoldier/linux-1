@@ -6,13 +6,16 @@
 #include <asm/atomic.h>
 #include <asm/uaccess.h>
 #include <linux/types.h>
+#include <linux/init.h>
+#include <linux/syscalls.h>
+#include <linux/linkage.h>
 
 /* https://lwn.net/Articles/604287/ */
 /* https://0xax.gitbooks.io/linux-insides/content/SysCall/syscall-1.html */
 //SYSCALL_DEFINE3(read, unsigned int, fd, char __user *, buf, size_t, count) {
 //SYSCALL_DEFINE2(mkdir, const char __user *, pathname, int, mode) {
-SYSCALL_DEFINE4(userinfo, int, uid, const char __user *,procs, int *,sigs, int *,fds) {
-//asmlinkage long sys_userinfo(uid_t uid, int * procs, int *sigs, int *fds) { 
+SYSCALL_DEFINE4(userinfo, int, uid, int *,procs, int *,sigs, int *,fds) {
+//asmlinkage long sys_userinfo(uid_t uid, const char __user * procs, const char __user *sigs, const char __user *fds) { 
 /* extern struct user_struct *find_user(kuid_t);
  * struct user_struct {
  *	atomic_t __count;	 reference count
@@ -44,11 +47,11 @@ SYSCALL_DEFINE4(userinfo, int, uid, const char __user *,procs, int *,sigs, int *
     nrOfFDs = atomic_long_read(&(current_user->epoll_watches));
 
     
-    if ( copy_to_user(procs, &nrOfProcesses, 1))
+    if ( copy_to_user(procs, &nrOfProcesses, sizeof(nrOfProcesses)))
         return -EFAULT;
-    if ( copy_to_user(sigs, &nrOfPending, 1))
+    if ( copy_to_user(sigs, &nrOfPending, sizeof(nrOfPending)))
         return -EFAULT;
-    if ( copy_to_user(fds, &nrOfFDs, 1))
+    if ( copy_to_user(fds, &nrOfFDs, sizeof(nrOfFDs)))
         return -EFAULT;
 
 
