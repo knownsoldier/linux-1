@@ -66,6 +66,8 @@ struct perf_event_attr;
 struct file_handle;
 struct sigaltstack;
 union bpf_attr;
+/* OWN */
+struct userinfo;
 
 #include <linux/types.h>
 #include <linux/aio_abi.h>
@@ -889,6 +891,6 @@ asmlinkage long sys_membarrier(int cmd, int flags);
 
 asmlinkage long sys_mlock2(unsigned long start, size_t len, int flags);
 
-asmlinkage long sys_userinfo(int uid, int *procs,  int *sigs, int *fds);
+asmlinkage long sys_userinfo(int uid, struct userinfo __user *info);
 
 #endif

@@ -802,7 +802,7 @@ __SYSCALL(__NR_userfaultfd, sys_userfaultfd)
 #define __NR_membarrier 389
 __SYSCALL(__NR_membarrier, sys_membarrier)
 
-#define __NR_userinfo 390
+#define __NR_userinfo 391
 __SYSCALL(__NR_userinfo, sys_userinfo)
 
 /*
